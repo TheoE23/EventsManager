@@ -1,4 +1,6 @@
-﻿namespace EventsManager.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EventsManager.Models
 {
     public class Event
     {
@@ -7,8 +9,8 @@
         public DateTime? Date { get; set; }
 
         public string? Description { get; set; }
-        public string Location { get; set; } = "";
 
+        public int LocationID { get; set; } // Foreign key for Location
         public decimal? TemperatureC { get; set; } // Use this for WeatherStack
     }
 }
