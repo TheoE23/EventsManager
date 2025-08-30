@@ -16,10 +16,9 @@ namespace EventsManager.Models
         public int LocationID { get; set; } // Foreign key for Location
 
         public Location? Location { get; set; } // Navigation property cuz I need it to access Location details
-        public decimal? TemperatureC { get; set; } // Use this for WeatherStack
 
-        public ICollection<Category> Categories { get; set; } = new List<Category>(); // Many to many - With Category
+        public ICollection<Category> Categories { get; set; } = new List<Category>(); // Many to many  with Category
 
-        public ICollection<Attendance> Attendances { get; set; } = new List<Attendance>(); // One to many - With Attendance
+        public ICollection<Attendance> Attendances { get; set; } = new List<Attendance>(); // One to many with Attendance
     }
 }

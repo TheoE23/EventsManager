@@ -7,5 +7,9 @@
 
         public Event? Event { get; set; } // Navigation property cuz I need it to access Event details
 
+        public string ApplicationUserId { get; set; } = ""; // Foreign key for ApplicationUser
+
+        public ApplicationUser? ApplicationUser { get; set; } // Navigation property cuz I need it to access User details
+
     }
 }

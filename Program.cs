@@ -1,14 +1,30 @@
 using EventsManager.Data;
+using EventsManager.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<ApplicationDbContext>(option => option.UseSqlite(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    options.Password.RequiredLength = 4;
+    options.Password.RequireDigit = true;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
+
+
 
 var app = builder.Build();
 
@@ -25,7 +41,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+
+app.UseAuthentication();
 app.UseAuthorization();
+
+
+app.MapRazorPages();
+
 
 app.MapControllerRoute(
     name: "default",

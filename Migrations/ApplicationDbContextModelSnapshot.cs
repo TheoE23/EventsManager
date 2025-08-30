@@ -84,6 +84,10 @@ namespace EventsManager.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
@@ -97,6 +101,8 @@ namespace EventsManager.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
@@ -107,6 +113,7 @@ namespace EventsManager.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("ApplicationUserId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("EventId")
@@ -156,9 +163,6 @@ namespace EventsManager.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal?>("TemperatureC")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.HasIndex("LocationID");
@@ -174,6 +178,9 @@ namespace EventsManager.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal?>("TemperatureC")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -324,17 +331,32 @@ namespace EventsManager.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EventsManager.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("EventsManager.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("EventsManager.Models.Attendance", b =>
                 {
-                    b.HasOne("EventsManager.Models.ApplicationUser", null)
+                    b.HasOne("EventsManager.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Attendances")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("EventsManager.Models.Event", "Event")
                         .WithMany("Attendances")
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("Event");
                 });

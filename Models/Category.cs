@@ -8,6 +8,6 @@ namespace EventsManager.Models
 
         [Required]
         public string Name { get; set; } = "";
-        public ICollection<Event> Events { get; set; } = new List<Event>(); // Many to many - With Event
+        public ICollection<Event> Events { get; set; } = new List<Event>(); // Many to many with Event
     }
 }

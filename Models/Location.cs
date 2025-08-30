@@ -10,5 +10,7 @@ namespace EventsManager.Models
         public string Name { get; set; } = "";
       
         public ICollection<Event> Events { get; set; } = new List<Event>(); // One to many - With Event
+
+        public decimal? TemperatureC { get; set; } // Use this for WeatherStack
     }
 }

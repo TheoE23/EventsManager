@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("EventsManager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f50b9628b5f25ad85dafbaa89656a0ae8f3405ea")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+adbecfc2196ae711d2b03c15048451053537fa91")]
 [assembly: System.Reflection.AssemblyProductAttribute("EventsManager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EventsManager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
