@@ -10,7 +10,5 @@ namespace EventsManager.Models
 
         public ICollection<Attendance> Attendances { get; set; } = new List<Attendance>(); // One to many with Attendance
 
-        public string UserId { get; set; } = "";
-        public ApplicationUser? User { get; set; } // Navigation property for User model
     }
 }
