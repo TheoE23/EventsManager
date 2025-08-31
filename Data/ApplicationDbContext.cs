@@ -41,7 +41,8 @@ namespace EventsManager.Data
             builder.Entity<Event>().HasData(
                 new Event { Id = 1, Name = "Jazz Concert", Date = new DateTime(2024, 11, 15), Description = "An evening of smooth jazz.", LocationID = 1},
                 new Event { Id = 2, Name = "Art Exhibition", Date = new DateTime(2024, 12, 5), Description = "Showcasing modern art.", LocationID = 2 },
-                new Event { Id = 3, Name = "Tech Conference", Date = new DateTime(2025, 1, 20), Description = "Latest in tech innovations.", LocationID = 3 }
+                new Event { Id = 3, Name = "Tech Conference", Date = new DateTime(2025, 1, 20), Description = "Latest in tech innovations.", LocationID = 3 },
+                new Event { Id = 4, Name = "Football Match", Date = new DateTime(2024, 10, 10), Description = "Local teams face off.", LocationID = 1 }
             );
 
             builder.Entity<Event>()
@@ -50,8 +51,9 @@ namespace EventsManager.Data
                 .UsingEntity(j => j.HasData(
                    new {EventsId = 1, CategoriesId = 1},
                    new {EventsId = 2, CategoriesId = 2},
-                   new {EventsId = 3, CategoriesId = 3 }
-                 ));
+                   new {EventsId = 3, CategoriesId = 3 },
+                   new {EventsId = 4, CategoriesId = 4 }
+                 ));        
         }
     }
 }
