@@ -1,5 +1,6 @@
 ﻿using EventsManager.Data;
 using EventsManager.Models;
+using EventsManager.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,21 +8,20 @@ namespace EventsManager.Controllers
 {
     public class EventsController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public EventsController(ApplicationDbContext db)
+
+        private readonly IEventService _eventService;
+
+        public EventsController(IEventService eventService)
         {
-            _db = db;
+            _eventService = eventService;
         }
+
+
 
         public IActionResult Index()
         {
-
-            var Events = _db.Events
-                .Include(e => e.Categories)
-                .Include(e => e.Location)
-                .ToList();
-
-
+            
+            var Events = _eventService.GetAllEvents();
 
             return View(Events);
         }
