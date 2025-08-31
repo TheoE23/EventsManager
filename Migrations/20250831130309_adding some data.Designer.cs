@@ -3,6 +3,7 @@ using System;
 using EventsManager.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventsManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250831130309_adding some data")]
+    partial class addingsomedata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.19");
@@ -30,23 +33,6 @@ namespace EventsManager.Migrations
                     b.HasIndex("EventsId");
 
                     b.ToTable("CategoryEvent");
-
-                    b.HasData(
-                        new
-                        {
-                            CategoriesId = 1,
-                            EventsId = 1
-                        },
-                        new
-                        {
-                            CategoriesId = 2,
-                            EventsId = 2
-                        },
-                        new
-                        {
-                            CategoriesId = 3,
-                            EventsId = 3
-                        });
                 });
 
             modelBuilder.Entity("EventsManager.Models.ApplicationUser", b =>
