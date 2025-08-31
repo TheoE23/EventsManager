@@ -47,11 +47,32 @@ using (var scope = app.Services.CreateScope())
 {
    var services = scope.ServiceProvider;
    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-   
+   var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+
     if (roleManager.RoleExistsAsync("Admin").Result == false)
     {
        var result = roleManager.CreateAsync(new IdentityRole("Admin")).Result;
     }
+
+    string adminName = "admin@test.com";
+    string adminPassword = "Admin1@";
+
+    var adminUser = await userManager.FindByNameAsync(adminName);
+    if (adminUser == null)
+    {
+       adminUser = new ApplicationUser
+       {
+           Name = adminName,
+           UserName = adminName,
+
+       };
+       var result = await userManager.CreateAsync(adminUser, adminPassword);
+       if (result.Succeeded)
+       {
+           await userManager.AddToRoleAsync(adminUser, "Admin");
+       }
+    }
+
 
 }
 
