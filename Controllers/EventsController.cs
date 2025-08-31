@@ -5,6 +5,8 @@ using EventsManager.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using X.PagedList;
+using X.PagedList.Extensions;
 
 namespace EventsManager.Controllers
 {
@@ -21,10 +23,13 @@ namespace EventsManager.Controllers
 
 
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            
-            var Events = _eventService.GetAllEvents();
+            int pageSize = 10;
+
+            var Events = _eventService.GetAllEvents()
+                .ToPagedList(page, pageSize);   
+
 
             return View(Events);
         }

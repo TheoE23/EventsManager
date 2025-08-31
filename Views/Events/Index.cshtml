@@ -1,6 +1,10 @@
-﻿<h1 style="text-align: center">Hello welcome to Events list!</h1>
+﻿@using X.PagedList.Mvc.Core
+@using X.PagedList
+
+
+<h1 style="text-align: center">Hello welcome to Events list!</h1>
 <h2 style="text-align: center">Take your pick from the events below!</h2>
-@model List<Event>
+@model IPagedList<EventsManager.Models.Event>
 <div class = "table-responsive">
     <table class="table table-bordered table-hover">
        <thead>
@@ -25,4 +29,7 @@
             }
         </tbody>
     </table>    
+</div>
+<div class="pagination">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 </div>
