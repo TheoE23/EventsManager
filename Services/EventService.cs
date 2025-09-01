@@ -60,6 +60,17 @@ namespace EventsManager.Services
             return await _db.Categories.ToListAsync();
         }
 
+        public async Task<bool> DeleteEventAsync(int id)
+        {
+            var eventToDelete = await _db.Events.FindAsync(id);
+            if (eventToDelete == null)
+            {
+                return false;
+            }
+            _db.Events.Remove(eventToDelete);
+            await _db.SaveChangesAsync();
+            return true;
+        }
     }
 }
 

@@ -68,5 +68,23 @@ namespace EventsManager.Controllers
             ViewBag.Categories = await _eventService.GetAllCategoriesAsync();
         }
 
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deleteEvent = await _eventService.DeleteEventAsync(id);
+            if (deleteEvent == false)
+            {
+                ViewBag.ErrorMessage = "Didn't find the event";
+                return View();
+            }
+            ViewBag.Message = "Event was deleted.";
+            return View();
+        }
     }
 }

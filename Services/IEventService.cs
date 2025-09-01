@@ -13,5 +13,7 @@ namespace EventsManager.Services
 
         Task<List<Category>> GetAllCategoriesAsync();
 
+        Task<bool> DeleteEventAsync(int id);
+
     }
 }

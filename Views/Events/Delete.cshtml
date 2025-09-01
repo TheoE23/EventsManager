@@ -1,0 +1,18 @@
+﻿<h1 style="text-align: center">Welcome, admin.</h1>
+<h3 style="text-align: center">This is the event delete panel</h3>
+
+<form method="post" asp-action="Delete">
+    <div class="form-group">
+        <label for="eventId">Enter Event ID:</label>
+        <input type="number" name="id" id="eventId" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+
+@if(ViewBag.Message != null)
+{
+    <div class="alert alert-info" role="alert" style="margin-top:20px;">
+        @ViewBag.Message
+    </div>
+}
+)
