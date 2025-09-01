@@ -30,6 +30,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 
 builder.Services.AddScoped<IEventService, EventService>();
 
+builder.Services.AddHttpClient<WeatherFetchService>();
+
 
 
 
@@ -93,4 +95,31 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.Run();
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var db = services.GetRequiredService<ApplicationDbContext>();
+    var fetchWeatherService = services.GetRequiredService<WeatherFetchService>();
+
+    var locations = await db.Locations.ToListAsync();
+
+    foreach (var location in locations)
+    {
+        if (location.TemperatureC.HasValue)
+        { continue; }
+
+        try        
+        {
+            var temp = await fetchWeatherService.GetTemperatureAsync(location.Name);
+            location.TemperatureC = temp;
+            await db.SaveChangesAsync();
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine("Can't get temp, maybe exceeding api calls");
+        }
+
+    }
+}
+
+    app.Run();
